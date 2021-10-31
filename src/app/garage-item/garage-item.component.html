@@ -1,1 +1,27 @@
-<p>garage-item works!</p>
+<mat-card class="example-card" *ngIf="garage" [routerLink]="['/garage-detail', garage.id]">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"><img mat-card-image src="../../assets/img/garage.jpg" alt="Photo garage"></div>
+      <mat-card-title>{{garage.name}}</mat-card-title>
+      <mat-card-subtitle>{{garage.address}}</mat-card-subtitle>
+      <mat-card-subtitle><strong style="text-align: center;">Ouvert</strong></mat-card-subtitle>
+      <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column">
+        <div fxLayoutAlign="center center">4,9</div>
+        <div fxLayoutAlign="center center" fxFlex="0 0 auto"><button mat-icon-button color="warn" >
+            <mat-icon>star</mat-icon>
+        </button></div>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        {{garage.description}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-mini-fab color="warn" style="margin-right: 12px;" (click)="addToFavorite($event)">
+            <mat-icon>favorite_border</mat-icon>
+          </button>
+          
+          
+    </mat-card-actions>
+  </mat-card>
+  

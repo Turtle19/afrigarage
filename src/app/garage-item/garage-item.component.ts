@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Garage } from '../entities/garageEntity';
 
 @Component({
   selector: 'app-garage-item',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GarageItemComponent implements OnInit {
 
+  @Input() garage: Garage | undefined
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  addToFavorite(event: Event){
+    event.stopPropagation();
+
+    console.log('add to favorite');
+    
   }
 
 }

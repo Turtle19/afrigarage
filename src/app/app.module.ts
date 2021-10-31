@@ -17,6 +17,8 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { GarageItemComponent } from './garage-item/garage-item.component';
 import { HeaderComponent } from './header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { GarageDetailComponent } from './garage-detail/garage-detail.component';
 
 export const MATERIAL_MODULE = [MatSidenavModule, MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule];
 
@@ -29,7 +31,8 @@ export const MATERIAL_MODULE = [MatSidenavModule, MatToolbarModule, MatButtonMod
     PageNotFoundComponent,
     BookingComponent,
     GarageItemComponent,
-    HeaderComponent
+    HeaderComponent,
+    GarageDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +40,7 @@ export const MATERIAL_MODULE = [MatSidenavModule, MatToolbarModule, MatButtonMod
     FormsModule,
     ReactiveFormsModule,
     MDBBootstrapModule.forRoot(),
+    HttpClientModule,
     ...MATERIAL_MODULE
   ],
   providers: [],

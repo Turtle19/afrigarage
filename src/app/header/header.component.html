@@ -24,8 +24,8 @@
       </ul>
       
     </div>
-    <form class="form-inline d-flex flex-row">
-      <input class="form-control p-2" type="search" placeholder="Rechercher un garage" aria-label="Search" style="margin-right: 10px;">
+    <form [formGroup]="searchForm" class="form-inline d-flex flex-row" (ngSubmit)="onSubmit()">
+      <input formControlName="keyword" class="form-control p-2" type="search" placeholder="Rechercher un garage" aria-label="Search" style="margin-right: 10px;">
       <button class="btn btn-success p-2" type="submit">Rechercher</button>
     </form>
   </nav>

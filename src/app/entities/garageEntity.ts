@@ -1,3 +1,6 @@
+import { OpeningHours } from "./openinHours";
+import { Client } from "./userEntity";
+
 export interface Garage {
     id: number;
     name: string;
@@ -8,7 +11,7 @@ export interface Garage {
     longitude: number;
     logo: [];
     bookings: [];
-    opening_hours: [];
+    opening_hours: OpeningHours[];
     payments: [];
     address: string;
     slotimes: [];
@@ -22,10 +25,15 @@ export interface Avis{
     dateCreated: Date;
     garage: Garage;
     votes: Vote[]
-
 }
 
 export interface Vote{
     id: number;
     nbVote: number
+}
+
+export interface Favoris{
+    id: number;
+    garage: Garage;
+    client: Client
 }

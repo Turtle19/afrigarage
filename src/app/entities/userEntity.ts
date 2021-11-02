@@ -11,6 +11,7 @@ export interface Client{
     lastname: string;
     phone_number: string;
     address: string;
+    id: number;
     avatar: []
 }
 

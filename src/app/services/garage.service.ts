@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Avis, Garage } from '../entities/garageEntity';
+import { Avis, Favoris, Garage } from '../entities/garageEntity';
 import { ErrorService } from './error.service';
 import { catchError, map } from 'rxjs/operators';
 
@@ -47,5 +47,34 @@ export class GarageService {
       }),
       catchError((err) => this.errorService.handleError(err))
     );
+  }
+
+  addGarageToFavorite(idGarage: number, idUser: number): Observable<Favoris>{
+    return this.http.post<any>(`${environment.urlBack}/favorises`, {garage: idGarage, client: idUser}).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((err) => this.errorService.handleError(err))
+    );
+  }
+
+  getGarageFav(idGarage: number, idUser: number): Observable<Favoris[]>{
+    return this.http.get<any>(`${environment.urlBack}/favorises?garage.id=${idGarage}&client.id=${idUser}`).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((err) => this.errorService.handleError(err))
+    );
+
+  }
+
+  removeGarageFromFav(idGarageFav: number): Observable<Favoris>{
+    return this.http.delete<any>(`${environment.urlBack}/favorises/${idGarageFav}`).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((err) => this.errorService.handleError(err))
+    );
+
   }
 }

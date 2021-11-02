@@ -16,8 +16,9 @@ export class AuthService {
     return this.http
       .post<any>(`${environment.urlAuth}`, { identifier: login, password })
       .pipe(
-        map((response) => {
+        map((response: AuthResponse) => {
           localStorage.setItem('id_token', response.jwt);
+          localStorage.setItem('id_user', response.user.id.toString());
           return response;
         }),
         catchError((err) => this.errorService.handleError(err))
@@ -26,6 +27,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('id_token');
+    localStorage.removeItem('id_user')
   }
 
   public isLoggedIn() {

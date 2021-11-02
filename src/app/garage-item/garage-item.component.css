@@ -5,13 +5,17 @@
   height: 100px;
 }
 
-.example-card {
+.item-card {
     max-width: 100%;/*400px*/
     background-color: rgb(243, 241, 237);
     margin-top: 10px;
   }
   
-  .example-header-image {
+  .card-header {
     background-size: cover; 
   }
-  
+
+  .avis{
+    width: 50px;
+    float: right;
+  }

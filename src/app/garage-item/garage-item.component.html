@@ -1,27 +1,42 @@
-<mat-card class="example-card" *ngIf="garage" [routerLink]="['/garage-detail', garage.id]">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"><img mat-card-image src="../../assets/img/garage.jpg" alt="Photo garage"></div>
-      <mat-card-title>{{garage.name}}</mat-card-title>
-      <mat-card-subtitle>{{garage.address}}</mat-card-subtitle>
-      <mat-card-subtitle><strong style="text-align: center;">Ouvert</strong></mat-card-subtitle>
-      <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column">
-        <div fxLayoutAlign="center center">4,9</div>
-        <div fxLayoutAlign="center center" fxFlex="0 0 auto"><button mat-icon-button color="warn" >
-            <mat-icon>star</mat-icon>
-        </button></div>
+<mat-card
+  class="item-card"
+  *ngIf="garage"
+  [routerLink]="['/garage-detail', garage.id]"
+>
+  <mat-card-header>
+    <div mat-card-avatar class="card-header">
+      <img
+        mat-card-image
+        src="../../assets/img/garage.jpg"
+        alt="Photo garage"
+      />
+    </div>
+    <mat-card-title>{{ garage.name }}</mat-card-title>
+    <mat-card-subtitle>{{ garage.address }}</mat-card-subtitle>
+    <mat-card-subtitle
+      ><strong style="text-align: center">{{
+        getGarageStatus()
+      }}</strong></mat-card-subtitle
+    >
+    
+  </mat-card-header>
+  <div class="avis">
+      <span style="text-decoration: underline;">{{ garage.avis.length }} avis</span>
+      <div>
+        <button mat-icon-button color="warn">
+          <mat-icon>star</mat-icon>
+        </button>
       </div>
-    </mat-card-header>
-    <mat-card-content>
-      <p>
-        {{garage.description}}
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-        <button mat-mini-fab color="warn" style="margin-right: 12px;" (click)="addToFavorite($event)">
-            <mat-icon>favorite_border</mat-icon>
-          </button>
-          
-          
-    </mat-card-actions>
-  </mat-card>
-  
+    </div>
+  <mat-card-content>
+    <p style="text-align: center;">
+      {{ garage.description }}
+    </p>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button mat-icon-button color="primary" (click)="addToFavorite($event)" #button>
+      <mat-icon aria-hidden="false" >favorite</mat-icon>
+    </button>
+  </mat-card-actions>
+
+</mat-card>

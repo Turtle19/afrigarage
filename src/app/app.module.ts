@@ -19,8 +19,13 @@ import { HeaderComponent } from './header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { GarageDetailComponent } from './garage-detail/garage-detail.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { DialogRDVComponent } from './dialog-rdv/dialog-rdv.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatListModule} from '@angular/material/list';
+import {MatExpansionModule} from '@angular/material/expansion';
 
-export const MATERIAL_MODULE = [MatSidenavModule, MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule];
+export const MATERIAL_MODULE = [MatSidenavModule, MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule, MatDialogModule, MatListModule, MatExpansionModule];
 
 @NgModule({
   declarations: [
@@ -32,7 +37,8 @@ export const MATERIAL_MODULE = [MatSidenavModule, MatToolbarModule, MatButtonMod
     BookingComponent,
     GarageItemComponent,
     HeaderComponent,
-    GarageDetailComponent
+    GarageDetailComponent,
+    DialogRDVComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +47,7 @@ export const MATERIAL_MODULE = [MatSidenavModule, MatToolbarModule, MatButtonMod
     ReactiveFormsModule,
     MDBBootstrapModule.forRoot(),
     HttpClientModule,
+    BrowserAnimationsModule,
     ...MATERIAL_MODULE
   ],
   providers: [],

@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Choisissez la date de rendez-vous</h1>
+<div mat-dialog-content>
+    <div *ngIf="data.slotimes.length >0; else elseBlock">
+        <ng-container *ngFor="let creneau of data.slotimes">
+            <mat-accordion style="background-color: aqua !important;">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                  <mat-expansion-panel-header class="disable_ripple">
+                    <mat-panel-title style="font-weight: bold;"> {{getDayOfWeek(creneau.creneau)}} {{creneau.creneau | date: 'dd/MM/yyyy'}} </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <button mat-raised-button color="primary" [disabled]="!slotIsAvailable(creneau)">{{getSlotime(creneau.creneau)}}</button>
+                </mat-expansion-panel>
+              </mat-accordion>
+        </ng-container>
+    </div>
+    
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Annuler</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</div>
+<ng-template #elseBlock><h1>Aucune disponibilté en ligne</h1></ng-template>

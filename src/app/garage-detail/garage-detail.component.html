@@ -1,1 +1,19 @@
-<p>garage-detail works!</p>
+<div class="container" style="display: block; background-color: aquamarine; row-gap: 20px; justify-content: space-between; " *ngIf="garage">
+    <div class="garage-desc" >
+        <app-garage-item [garage]="garage"></app-garage-item>
+    </div>
+
+    <div class="container-service" *ngFor="let service of garage.services">
+        <mat-card>
+            <mat-card-title>{{service.nameService}}</mat-card-title>
+            <mat-card-subtitle>{{service.description}}</mat-card-subtitle>
+            <mat-card-subtitle style="text-align: center; font-size: 15px; font-weight: bold;">Prix : {{service.price}}€</mat-card-subtitle>
+            <mat-card-actions>
+              <button mat-raised-button color="primary" (click)="openDialogRdv(service)">PRENDRE RENDEZ-VOUS</button>
+            </mat-card-actions>
+          </mat-card>
+    </div>
+    <div class="map" style="width: 20%; border: 1px solid yellow;">
+        <h1>Je suis la carte</h1>
+    </div>
+</div>

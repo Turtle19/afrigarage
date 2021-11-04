@@ -1,4 +1,6 @@
 import { OpeningHours } from "./openinHours";
+import { Service } from "./serviceEntity";
+import { Slotime } from "./slotimesEntity";
 import { Client } from "./userEntity";
 
 export interface Garage {
@@ -14,8 +16,9 @@ export interface Garage {
     opening_hours: OpeningHours[];
     payments: [];
     address: string;
-    slotimes: [];
-    avis: Avis[]
+    slotimes: Slotime[];
+    avis: Avis[],
+    services: Service[]
 
 }
 

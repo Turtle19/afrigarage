@@ -25,7 +25,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.logout();
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/accueil'])
+    }
   }
 
   onSubmit() {
@@ -43,8 +45,5 @@ export class LoginComponent implements OnInit {
         }
       });
     } 
-    
-
-    //this.router.navigate(['/accueil']);
   }
 }

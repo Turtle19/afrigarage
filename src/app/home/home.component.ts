@@ -23,15 +23,12 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(localStorage.getItem('id_token'));
-
     if (!this.isLoggedIn) {
       this.router.navigate(['/login']);
       return;
     }
 
     this.garageService.getAllGarages().subscribe((resp) => {
-      console.log(resp);
       this.garages = resp;
     });
   }

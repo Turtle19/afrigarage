@@ -1,21 +1,24 @@
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { throwError } from 'rxjs';
+import { Observable } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+import { Booking } from '../entities/booking';
+import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookingService {
 
-  constructor() { }
+  constructor(private http: HttpClient, private errorService: ErrorService) { }
 
-  handleError(error: HttpErrorResponse){
-    if (error.error instanceof ErrorEvent) {
-      console.log('An error occured:', error.error.message);  
-    } else{
-      console.log(`Backend returned code ${error.status}, ` + `body was: ${error.error}`);
-    }
-    return throwError(error);
+  getServiceInfos(idUser: number): Observable<Booking[]>{
+    return this.http.get<Booking[]>(`${environment.urlBack}/bookings?user.id=${idUser}`).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((err) => this.errorService.handleError(err))
+    );
   }
 }
-

@@ -1,1 +1,9 @@
-<p>favoris works!</p>
+<ng-container *ngIf="garageFavoris.length > 0; else elseBlock">
+  <div class="container-favoris" *ngFor="let fav of garageFavoris">
+    <app-garage-item [garage]="fav.garage"></app-garage-item>
+  </div>
+</ng-container>
+
+<ng-template #elseBlock
+  ><p style="text-align: center; font-size: 20px">Aucun favoris trouvé.</p></ng-template
+>

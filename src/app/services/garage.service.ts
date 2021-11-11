@@ -50,7 +50,7 @@ export class GarageService {
   }
 
   addGarageToFavorite(idGarage: number, idUser: number): Observable<Favoris>{
-    return this.http.post<any>(`${environment.urlBack}/favorises`, {garage: idGarage, client: idUser}).pipe(
+    return this.http.post<any>(`${environment.urlBack}/favorises`, {garage: idGarage, user: idUser}).pipe(
       map((response) => {
         return response;
       }),
@@ -59,13 +59,22 @@ export class GarageService {
   }
 
   getGarageFav(idGarage: number, idUser: number): Observable<Favoris[]>{
-    return this.http.get<any>(`${environment.urlBack}/favorises?garage.id=${idGarage}&client.id=${idUser}`).pipe(
+    return this.http.get<any>(`${environment.urlBack}/favorises?garage.id=${idGarage}&user.id=${idUser}`).pipe(
       map((response) => {
         return response;
       }),
       catchError((err) => this.errorService.handleError(err))
     );
 
+  }
+
+  setIsFavori(idGarage: number, isFav: boolean): Observable<Garage>{
+    return this.http.put<Garage>(`${environment.urlBack}/garages/${idGarage}`, {isFavori: isFav}).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((err) => this.errorService.handleError(err)) 
+    );
   }
 
   removeGarageFromFav(idGarageFav: number): Observable<Favoris>{
@@ -76,5 +85,14 @@ export class GarageService {
       catchError((err) => this.errorService.handleError(err))
     );
 
+  }
+
+  getUserFavoris(idUser: number): Observable<Favoris[]>{
+    return this.http.get<Favoris[]>(`${environment.urlBack}/favorises?user.id=${idUser}`).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((err) => this.errorService.handleError(err))
+    );
   }
 }

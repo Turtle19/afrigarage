@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Booking } from '../entities/booking';
+import { BookingService } from '../services/booking.service';
 
 @Component({
   selector: 'app-booking',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BookingComponent implements OnInit {
 
-  constructor() { }
+  bookings: Booking[] = [];
+
+  constructor(private bookingService: BookingService) { }
 
   ngOnInit(): void {
+    let idUser = localStorage.getItem('id_user');
+    if (idUser !== null) {
+      this.bookingService.getServiceInfos(parseInt(idUser, 10)).subscribe(bookings => this.bookings = bookings)
+    }
+    
   }
 
 }

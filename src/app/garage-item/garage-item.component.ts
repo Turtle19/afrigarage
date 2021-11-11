@@ -21,50 +21,37 @@ export class GarageItemComponent implements OnInit {
 
   addToFavorite(event: Event) {
     event.stopPropagation();
-    console.log(
-      'id user in localstorage ==> ' + localStorage.getItem('id_user')
-    );
-    const idUser = localStorage.getItem('id_token');
+    let idUser = localStorage.getItem('id_user');
+    
     if (this.garage && idUser !== null) {
-      
-      console.log('bef');
-      if (this.button) {
-        
-        // garage can be added to list favorite
-        if (this.button.color !== 'accent') {
-          console.log('here');
-          
-          this.garageService
-            .addGarageToFavorite(this.garage.id, parseInt(idUser, 10))
-            .subscribe((garageAdded) => {
-              console.log(garageAdded);
-              if (this.button) {
-                this.button.color = 'accent';
-              }
+      let garageId = this.garage.id;
+
+      if (!this.garage.isFavori) {
+        //garage can be added to list favorite
+        this.garageService
+          .addGarageToFavorite(this.garage.id, parseInt(idUser, 10))
+          .subscribe((garageAdded) => {
+            this.garageService.setIsFavori(garageId, true).subscribe(garag => console.log(garag)
+            );
+          });
+      } else {
+        // Get id of favorite garage
+        this.garageService
+          .getGarageFav(this.garage?.id, parseInt(idUser, 10))
+          .subscribe((garageFav) => {
+            // remove garage from list favorite
+            garageFav.map((fav) => {
+              this.garageService.removeGarageFromFav(fav.id).subscribe(() => {
+                this.garageService.setIsFavori(garageId, false).subscribe();
+              });
             });
-        } else {
-          // Get id of favorite garage
-          this.garageService
-            .getGarageFav(this.garage?.id, 2)
-            .subscribe((garageFav) => {
-              // remove garage from list favorite
-              garageFav.map(fav => {
-                this.garageService.removeGarageFromFav(fav.id).subscribe(() => {
-                  if (this.button) {
-                    this.button.color = 'primary';
-                    console.log('removed');
-                  }
-                })
-              })
-           
-            });
-        }
+          });
       }
     }
   }
 
   getGarageStatus() {
-    if (this.garage !== undefined) {
+    if (this.garage !== undefined && this.garage.opening_hours) {
       const currentDay = this.getDay(new Date().getDay());
       this.openingHours = this.garage.opening_hours;
       this.garage.opening_hours.map((opening) => {
@@ -74,7 +61,7 @@ export class GarageItemComponent implements OnInit {
         return Status.CLOSED;
       });
     }
-    return Status.CLOSED;
+    return Status.NOT_DEFINED;
   }
 
   getDay(value: number) {
@@ -111,5 +98,7 @@ export class GarageItemComponent implements OnInit {
     return Status.CLOSED;
   }
 
-  getColorIcFav() {}
+  getColorIcFav() {
+    return this.garage && this.garage.isFavori ? 'accent' : 'primary';
+  }
 }

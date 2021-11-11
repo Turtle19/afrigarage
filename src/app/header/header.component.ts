@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Garage } from '../entities/garageEntity';
 import { AuthService } from '../services/auth.service';
 import { GarageService } from '../services/garage.service';
+import { SharedService } from '../services/shared.service';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +16,7 @@ export class HeaderComponent implements OnInit {
   navbarOpen = false;
   searchForm: FormGroup;
   garagesResult: Garage[] = [];
+  subscription: Subscription | undefined;
 
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
@@ -23,6 +26,7 @@ export class HeaderComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private garageService: GarageService,
+    private sharedService: SharedService,
     private router: Router
   ) {
     this.searchForm = this.fb.group({
@@ -33,19 +37,20 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
-    console.log(this.searchForm.value);
     this.garageService
       .getGaragesBySearch(this.searchForm.value.keyword)
       .subscribe((garages) => {
         this.garagesResult = garages;
-        console.log(this.garagesResult.length);
+        this.sharedService.changeMessage(garages)
       });
   }
 
   logout() {
-    console.log('logout');
-
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 }

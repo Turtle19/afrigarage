@@ -1,3 +1,8 @@
-<div class="container" *ngFor="let garage of garages">
-  <app-garage-item [garage]="garage"></app-garage-item>
-</div>
+<ng-container *ngIf="garages.length > 0; else noResult">
+  <div class="container" *ngFor="let garage of garages">
+    <app-garage-item [garage]="garage"></app-garage-item>
+  </div>
+</ng-container>
+<ng-template #noResult> <h1 style="text-align: center;">Aucun garage trouvé</h1></ng-template>
+
+

@@ -11,7 +11,8 @@ export enum DayOfWeek{
 
 export enum Status{
     OPENED = "Ouvert",
-    CLOSED = "Fermé"
+    CLOSED = "Fermé",
+    NOT_DEFINED = "Nous sommes ouverts tous les jours du lundi au samedi de 9h à 19h"
 }
 
 export enum SlotStatus{

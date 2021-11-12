@@ -24,6 +24,8 @@ import { DialogRDVComponent } from './dialog-rdv/dialog-rdv.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatListModule} from '@angular/material/list';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 export const MATERIAL_MODULE = [MatSidenavModule, MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule, MatDialogModule, MatListModule, MatExpansionModule];
 
@@ -48,7 +50,13 @@ export const MATERIAL_MODULE = [MatSidenavModule, MatToolbarModule, MatButtonMod
     MDBBootstrapModule.forRoot(),
     HttpClientModule,
     BrowserAnimationsModule,
-    ...MATERIAL_MODULE
+    ...MATERIAL_MODULE,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

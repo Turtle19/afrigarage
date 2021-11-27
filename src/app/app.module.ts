@@ -26,9 +26,11 @@ import { DialogRDVComponent } from './dialog-rdv/dialog-rdv.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { BookingAddDialogComponent } from './booking-add-dialog/booking-add-dialog.component';
+import { InscriptionComponent } from './inscription/inscription.component';
 
 export const MATERIAL_MODULE = [
   MatSidenavModule,
@@ -41,6 +43,7 @@ export const MATERIAL_MODULE = [
   MatExpansionModule,
   MatTooltipModule,
   MatInputModule,
+  MatAutocompleteModule
 ];
 
 @NgModule({
@@ -56,6 +59,7 @@ export const MATERIAL_MODULE = [
     GarageDetailComponent,
     DialogRDVComponent,
     BookingAddDialogComponent,
+    InscriptionComponent,
   ],
   imports: [
     BrowserModule,

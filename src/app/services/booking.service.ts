@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -12,6 +12,11 @@ import { ErrorService } from './error.service';
 export class BookingService {
 
   constructor(private http: HttpClient, private errorService: ErrorService) { }
+  private httpOptions = {
+    header: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  }
 
   getUserBooking(idUser: number): Observable<Booking[]>{
     return this.http.get<Booking[]>(`${environment.urlBack}/bookings?user.id=${idUser}`).pipe(
@@ -31,9 +36,16 @@ export class BookingService {
   }
 
   getGarageBookings(garageId: number){
-    console.log(garageId);
-    
     return this.http.get<Booking[]>(`${environment.urlBack}/bookings?garage.id=${garageId}`).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((err) => this.errorService.handleError(err))
+    );
+  }
+
+  addBooking(booking: Booking): Observable<Booking>{
+    return this.http.post<Booking>(`${environment.urlBack}/bookings`, booking).pipe(
       map((response) => {
         return response;
       }),

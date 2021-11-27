@@ -1,28 +1,49 @@
-<h1 style="text-align: center; color: #FFBD4A;">Mes réservations</h1>
+<h1 style="text-align: center; color: #3399ff">Mes réservations</h1>
 <ng-container *ngIf="bookings.length > 0; else elseBlock">
-    <mat-card *ngFor="let booking of bookings">
-        <mat-card-header>
-            <div
-          mat-card-avatar
-          class="card-header"
-          style="background-image: url('http://localhost:1337{{ booking.garage.logo.url }}');
-        background-size: cover; "
-        ></div>
-        <mat-card-title style="background-color: #FFBD4A;">{{ booking.date | date }}</mat-card-title>
-        </mat-card-header>
-        
-        <mat-card-content>
-            {{booking.garage.name}}
-            {{booking.garage.address}}
-            {{booking.service.name}}
-            {{booking.status}}
-        </mat-card-content>
-    </mat-card>
+  <mat-card *ngFor="let booking of bookings" style="width: 500px; margin: auto; margin-top: 10px;">
+    <mat-card-header>
+      <img
+        *ngIf="booking.garage.logo?.url; else noLogo"
+        matTooltip="mode de paiement"
+        mat-card-avatar
+        src="{{ url }}{{ booking.garage.logo?.url }}"
+        alt="logo mode de paiement"
+        style="align-items: center"
+      />
+      <mat-card-title>{{ booking.garage.name }}</mat-card-title>
+    <mat-card-subtitle><strong >{{ booking.garage.address }}</strong></mat-card-subtitle>
+    </mat-card-header>
 
+    <mat-card-content style="text-align: center; font-weight: bold;">
+      <div>
+        <h4>Service</h4>
+        <p class="p-content">{{ booking.service.name }}</p>
+      </div>
+      <div>
+        <h4>Date</h4>
+        <p class="p-content">{{ booking.date | date: 'medium' }}</p>
+      </div>
+      <div>
+        <h4>Immatriculation</h4>
+        <p class="p-content">{{ booking.immatriculation }}</p>
+      </div>
+    </mat-card-content>
+    <mat-card-actions *ngIf="!dateIsBefore(booking)" align="end">
+      <button mat-raised-button color="primary" (click)="cancelBooking(booking)">
+        Annuler le RDV
+      </button>
+    </mat-card-actions>
+  </mat-card>
 </ng-container>
 
 <ng-template #elseBlock
-  ><h1 style="text-align: center; font-size: 20px">
-    Aucune réservation en cours.
-  </h1></ng-template
+  ><h1 style="text-align: center; font-size: 20px">Aucune réservation en cours.</h1></ng-template
 >
+<ng-template #noLogo>
+  <img
+    mat-card-avatar
+    src="../../assets/images/garage.png"
+    alt="logo garage"
+    style="align-items: center"
+  />
+</ng-template>

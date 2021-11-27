@@ -13,6 +13,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { GarageItemComponent } from './garage-item/garage-item.component';
 import { HeaderComponent } from './header/header.component';
@@ -27,7 +28,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
-export const MATERIAL_MODULE = [MatSidenavModule, MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule, MatDialogModule, MatListModule, MatExpansionModule];
+export const MATERIAL_MODULE = [MatSidenavModule, MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule, MatDialogModule, MatListModule, MatExpansionModule, MatTooltipModule];
 
 @NgModule({
   declarations: [

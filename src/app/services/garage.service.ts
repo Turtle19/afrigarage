@@ -41,8 +41,6 @@ export class GarageService {
   }
 
   addGarageToFavorite(idGarage: number, idUser: number): Observable<Favoris>{
-    console.log(localStorage.getItem("id_user"));
-    
     return this.http.post<any>(`${environment.urlBack}/favorises`, {garage: idGarage, user: idUser}).pipe(
       map((response) => {
         return response;

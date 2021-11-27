@@ -53,8 +53,6 @@ export class BookingService {
     );
   }
   updateBooking(booking: Booking): Observable<Booking>{
-    console.log(booking.id);
-    
     return this.http.put<Booking>(`${environment.urlBack}/bookings/${booking.id}`, booking).pipe(
       map((response) => {
         return response;

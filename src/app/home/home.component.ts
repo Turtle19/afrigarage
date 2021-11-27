@@ -13,6 +13,7 @@ import { SharedService } from '../services/shared.service';
 })
 export class HomeComponent implements OnInit {
   garages: Garage[] = [];
+  favoris: Garage[] = [];
   subscription: Subscription | undefined;
 
   get isLoggedIn() {
@@ -31,8 +32,22 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/login']);
       return;
     }
+    let idUser = localStorage.getItem('id_user');
     this.garageService.getAllGarages().subscribe((resp) => {
       this.garages = resp;
+      if (idUser !== null) {
+        this.garageService.getUserFavoris(parseInt(idUser, 10)).subscribe(favoris => {
+          this.garages.map(g => {
+            favoris.map(f => {
+              if (f.garage.id === g.id) {
+                g.isFavoris = true;
+                return;
+              }
+            })
+          })
+        })
+      }
+      
     });
     this.sharedService.currentMessage.subscribe((searchRes) => {
       if (searchRes) {

@@ -3,11 +3,14 @@ export interface User{
     username: string;
     email: string;
     customRole: string;
-    irstname: string;
+    firstname: string;
     lastname: string;
-    phone_number: string;
+    password: string;
+    description: string;
+    phoneNumber: string;
     address: string;
-    avatar: []
+    avatar: [];
+    urlPhoto: string;
 }
 export interface AuthResponse{
     jwt: string;

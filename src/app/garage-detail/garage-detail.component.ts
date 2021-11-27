@@ -3,10 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Garage } from '../entities/garageEntity';
 import { GarageService } from '../services/garage.service';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogRDVComponent } from '../dialog-rdv/dialog-rdv.component';
-import { Service } from '../entities/serviceEntity';
 import { Booking } from '../entities/booking';
 import { BookingService } from '../services/booking.service';
+import { BookingAddDialogComponent } from '../booking-add-dialog/booking-add-dialog.component';
 
 @Component({
   selector: 'app-garage-detail',
@@ -41,7 +40,6 @@ export class GarageDetailComponent implements OnInit {
           });
           this.garage = garage;
           this.bookingService.getGarageBookings(this.garage.id).subscribe(bookings => {
-            console.log(bookings);
             bookings.map(booking => {
               if (booking.user === null) { // that means booking is available
                 this.garageBookings.push(booking);
@@ -61,8 +59,8 @@ export class GarageDetailComponent implements OnInit {
   }
 
   openDialogRdv(booking: Booking) {
-    const dialogRef = this.dialog.open(DialogRDVComponent, {
-      width: '550px',
+    const dialogRef = this.dialog.open(BookingAddDialogComponent, {
+      width: '750px',
       data: booking,
       hasBackdrop: false,
     });

@@ -53,7 +53,6 @@ export class BookingAddDialogComponent implements OnInit {
     if (this.bookingForm.valid && userId !== null) {
       this.initBooking();
       this.booking.user = parseInt(userId, 10);
-      console.log(this.booking);
       Swal.fire({
         title: 'Souhaitez-vous confirmer la réservation?',
         showCancelButton: true,
@@ -66,7 +65,7 @@ export class BookingAddDialogComponent implements OnInit {
               this.dialogRef.close();
             }
           })
-        } else if (result.isDenied) {
+        } else {
           Swal.fire('Aucune réservation n\'a été effectuée', '', 'info')
         }
       })

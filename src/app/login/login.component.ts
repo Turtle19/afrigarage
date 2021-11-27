@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { AuthResponse } from '../entities/userEntity';
 import { AuthService } from '../services/auth.service';
 
@@ -44,6 +45,12 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/accueil'])
         }
       });
-    } 
+    } else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'L\'identifiant et le mot de passe sont réquis !'
+      });
+    }
   }
 }

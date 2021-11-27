@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { environment } from 'src/environments/environment.prod';
+import Swal from 'sweetalert2';
 import { Favoris, Garage } from '../entities/garageEntity';
 import { OpeningHours } from '../entities/openinHours';
 import { GarageService } from '../services/garage.service';
@@ -25,11 +26,14 @@ export class GarageItemComponent implements OnInit {
     event.stopPropagation();
     let idUser = localStorage.getItem('id_user');
     if (this.garage !== undefined && idUser !== null) {
-      this.garageService.addGarageToFavorite(this.garage.id, parseInt(idUser, 10)).subscribe(added => {
-        if (this.garage !== undefined) {
-        this.garage.isFavoris = true;
-        }
-      });
+      this.garageService
+        .addGarageToFavorite(this.garage.id, parseInt(idUser, 10))
+        .subscribe((added) => {
+          if (this.garage !== undefined) {
+            this.garage.isFavoris = true;
+            Swal.fire('Garage ' + this.garage.name, 'a été bien ajouté à vos favoris', 'success');
+          }
+        });
     }
   }
 
@@ -37,11 +41,14 @@ export class GarageItemComponent implements OnInit {
     event.stopPropagation();
     this.garageService.getIdFavori(this.garage?.id).subscribe((favoriToRemove) => {
       if (favoriToRemove !== null) {
-        favoriToRemove.map((fav) => this.garageService.removeFavori(fav.id).subscribe(removed => {
-          if (this.garage !== undefined) {
-            this.garage.isFavoris = false;
+        favoriToRemove.map((fav) =>
+          this.garageService.removeFavori(fav.id).subscribe((removed) => {
+            if (this.garage !== undefined) {
+              this.garage.isFavoris = false;
+              Swal.fire('Garage ' + this.garage.name, 'a bien été retiré de vos favoris', 'warning');
             }
-        }));
+          })
+        );
       }
     });
   }
@@ -82,8 +89,6 @@ export class GarageItemComponent implements OnInit {
   }
 
   isOpened(start: Date, end: Date) {
-    console.log(start);
-    console.log(new Date().getHours());
     const currentDate = new Date();
     if (currentDate.getHours() < start.getHours()) {
       return Status.CLOSED;

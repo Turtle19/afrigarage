@@ -10,13 +10,13 @@ export interface Booking{
     immatriculation: string,
     date: Date;
     garage: Garage,
-    user: User,
+    user: any,
     service: Service,
     usercomment: string;
 }
 
 export enum Status{
-    DRAFT = "Brouillon", 
-    CANCELLED = "Annuler", 
-    VALIDATE = "Valider"
+    CANCELED ="CANCELED", 
+    VALIDATED = "VALIDATED", 
+    DRAFT = "DRAFT"
 }

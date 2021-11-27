@@ -1,0 +1,78 @@
+<div class="form-container">
+  <h2 style="color: #3399ff">Prise de rendez-vous chez {{ data.garage.name }}</h2>
+  <H6>Certains champs sont déjà pre-remplis et non modifiables</H6>
+  <hr />
+  <form [formGroup]="bookingForm" (submit)="onSubmit()">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Immatriculation véhicule</mat-label>
+      <input
+        matInput
+        formControlName="immatriculation"
+        [(ngModel)]="data.immatriculation"
+        (ngModelChange)="data.immatriculation = $event.toUpperCase()"
+        required
+      />
+      <mat-error
+        *ngIf="
+          bookingForm.controls.immatriculation.touched &&
+          bookingForm.controls.immatriculation.invalid
+        "
+      >
+        <span *ngIf="bookingForm.controls.immatriculation.errors?.required"
+          >Ce champ est requis !</span
+        >
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Service</mat-label>
+      <input
+        matInput
+        [(ngModel)]="data.service.name"
+        (ngModelChange)="data.service.name = $event.toUpperCase()"
+        formControlName="service"
+        readonly
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Prix</mat-label>
+      <input matInput [(ngModel)]="data.price" formControlName="price" readonly />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Date</mat-label>
+      <input matInput [ngModel]="data.date | date: 'MM/dd/yyyy'" formControlName="date" readonly />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Description service</mat-label>
+      <textarea
+        matInput
+        [(ngModel)]="data.description"
+        formControlName="description"
+        readonly
+      ></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Votre commentaire</mat-label>
+      <textarea
+        matInput
+        [(ngModel)]="data.usercomment"
+        formControlName="usercomment"
+        placeholder="Quelques infos utiles sur votre véhicule (e.g: type de véhicule)"
+        required
+      ></textarea>
+      <mat-error
+        *ngIf="bookingForm.controls.usercomment.touched && bookingForm.controls.usercomment.invalid"
+      >
+        <span *ngIf="bookingForm.controls.usercomment.errors?.required">Ce champ est requis !</span>
+      </mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="warn" (click)="cancelBooking()">Annuler</button>
+    <button mat-raised-button color="primary" type="submit" style="float: right">
+      Confirmez le rendez-vous
+    </button>
+  </form>
+</div>

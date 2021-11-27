@@ -13,8 +13,27 @@ export class BookingService {
 
   constructor(private http: HttpClient, private errorService: ErrorService) { }
 
-  getServiceInfos(idUser: number): Observable<Booking[]>{
+  getUserBooking(idUser: number): Observable<Booking[]>{
     return this.http.get<Booking[]>(`${environment.urlBack}/bookings?user.id=${idUser}`).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((err) => this.errorService.handleError(err))
+    );
+  }
+  getBookings(): Observable<Booking[]>{
+    return this.http.get<Booking[]>(`${environment.urlBack}/bookings`).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((err) => this.errorService.handleError(err))
+    );
+  }
+
+  getGarageBookings(garageId: number){
+    console.log(garageId);
+    
+    return this.http.get<Booking[]>(`${environment.urlBack}/bookings?garage.id=${garageId}`).pipe(
       map((response) => {
         return response;
       }),

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Avis, Favoris, Garage } from '../entities/garageEntity';
+import { Favoris, Garage } from '../entities/garageEntity';
 import { ErrorService } from './error.service';
 import { catchError, map } from 'rxjs/operators';
 
@@ -31,15 +31,6 @@ export class GarageService {
     );
   }
 
-  getGarageVote(idGarage: number): Observable<Avis[]>{
-    return this.http.get<Avis[]>(`${environment.urlBack}/avis?garage.id=${idGarage}`).pipe(
-      map((response) => {
-        return response;
-      }),
-      catchError((err) => this.errorService.handleError(err))
-    );
-  }
-
   getGaragesBySearch(keyword: string): Observable<Garage[]>{
     return this.http.get<Garage[]>(`${environment.urlBack}/garages?name_contains=${keyword}`).pipe(
       map((response) => {
@@ -50,6 +41,8 @@ export class GarageService {
   }
 
   addGarageToFavorite(idGarage: number, idUser: number): Observable<Favoris>{
+    console.log(localStorage.getItem("id_user"));
+    
     return this.http.post<any>(`${environment.urlBack}/favorises`, {garage: idGarage, user: idUser}).pipe(
       map((response) => {
         return response;
@@ -58,27 +51,17 @@ export class GarageService {
     );
   }
 
-  getGarageFav(idGarage: number, idUser: number): Observable<Favoris[]>{
-    return this.http.get<any>(`${environment.urlBack}/favorises?garage.id=${idGarage}&user.id=${idUser}`).pipe(
+  getIdFavori(idGarage?: number): Observable<Favoris[]>{
+    return this.http.get<any>(`${environment.urlBack}/favorises?garage.id=${idGarage}`).pipe(
       map((response) => {
         return response;
       }),
       catchError((err) => this.errorService.handleError(err))
     );
-
   }
 
-  setIsFavori(idGarage: number, isFav: boolean): Observable<Garage>{
-    return this.http.put<Garage>(`${environment.urlBack}/garages/${idGarage}`, {isFavori: isFav}).pipe(
-      map((response) => {
-        return response;
-      }),
-      catchError((err) => this.errorService.handleError(err)) 
-    );
-  }
-
-  removeGarageFromFav(idGarageFav: number): Observable<Favoris>{
-    return this.http.delete<any>(`${environment.urlBack}/favorises/${idGarageFav}`).pipe(
+  removeFavori(idFavori: number): Observable<Favoris>{
+    return this.http.delete<any>(`${environment.urlBack}/favorises/${idFavori}`).pipe(
       map((response) => {
         return response;
       }),

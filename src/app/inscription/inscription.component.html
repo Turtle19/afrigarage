@@ -1,0 +1,124 @@
+<div class="form-container">
+  <h2 style="color: #3399ff">Inscription sur Afrigarage</h2>
+  <hr />
+  <form [formGroup]="userProfilForm" (submit)="onSubmit()">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Nom</mat-label>
+      <input matInput formControlName="lastname" required />
+      <mat-error
+        *ngIf="userProfilForm.controls.lastname.touched && userProfilForm.controls.lastname.invalid"
+      >
+        <span *ngIf="userProfilForm.controls.lastname.errors?.required"
+          >Ce champ ne peut pas être vide !</span
+        >
+        <span *ngIf="userProfilForm.controls.lastname.errors?.pattern"
+          >Le nom doit contenir que des lettres, espaces et -</span
+        >
+        <span *ngIf="userProfilForm.controls.lastname.errors?.maxLength"
+          >Le nom est trop long (50 caractères max)</span
+        >
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Prénom</mat-label>
+      <input matInput formControlName="firstname" required />
+      <mat-error
+        *ngIf="
+          userProfilForm.controls.firstname.touched && userProfilForm.controls.firstname.invalid
+        "
+      >
+        <span *ngIf="userProfilForm.controls.firstname.errors?.required"
+          >Ce champ est requis !</span
+        >
+        <span *ngIf="userProfilForm.controls.firstname.errors?.pattern"
+          >Le prénom doit contenir que des lettres, espaces et -</span
+        >
+        <span *ngIf="userProfilForm.controls.firstname.errors?.maxLength"
+          >Le prénom est trop long (50 caractères max)</span
+        >
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" required />
+      <mat-error
+        *ngIf="userProfilForm.controls.email.touched && userProfilForm.controls.email.invalid"
+      >
+        <span *ngIf="userProfilForm.controls.email.errors?.required"
+          >Ce champ ne peut pas être vide !</span
+        >
+        <span *ngIf="userProfilForm.controls.email.errors?.email">Format email incorrect !</span>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Mot de passe</mat-label>
+      <input matInput formControlName="password" required type="password" />
+      <mat-error
+        *ngIf="userProfilForm.controls.password.touched && userProfilForm.controls.password.invalid"
+      >
+        <span *ngIf="userProfilForm.controls.password.errors?.required">Ce champ est requis !</span>
+        <span *ngIf="userProfilForm.controls.password.errors?.maxLength"
+          >Mot de passe doit contenir 8 caractères au max</span
+        >
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Téléphone</mat-label>
+      <input matInput formControlName="phoneNumber" placeholder="0300000000" />
+      <mat-error
+        *ngIf="
+          userProfilForm.controls.phoneNumber.touched && userProfilForm.controls.phoneNumber.invalid
+        "
+      >
+        <span *ngIf="userProfilForm.controls.phoneNumber.errors?.maxLength"
+          >(10) caractères au max</span
+        >
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Adresse</mat-label>
+        <input type="text" matInput formControlName="address" [matAutocomplete]="auto" required/>
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option
+            *ngFor="let option of filteredOptions | async"
+            [value]="option.properties.label"
+          >
+            {{ option.properties.label }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error
+          *ngIf="userProfilForm.controls.address.touched && userProfilForm.controls.address.invalid"
+        >
+          <span *ngIf="userProfilForm.controls.address.errors?.required">Ce champ est requis !</span>
+          <span *ngIf="userProfilForm.controls.address.errors?.maxLength"
+            >Adresse trop longue (200 caractères max) !</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>description</mat-label>
+      <textarea
+        matInput
+        formControlName="description"
+        placeholder="Décrivez-vous en quelques mots"
+        required
+      ></textarea>
+      <mat-error
+        *ngIf="
+          userProfilForm.controls.description.touched && userProfilForm.controls.description.invalid
+        "
+      >
+        <span *ngIf="userProfilForm.controls.description.errors?.required"
+          >Ce champ est requis !</span
+        >
+      </mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" style="float: right">S'inscrire</button>
+  </form>
+</div>

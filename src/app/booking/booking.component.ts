@@ -16,7 +16,7 @@ export class BookingComponent implements OnInit {
   ngOnInit(): void {
     let idUser = localStorage.getItem('id_user');
     if (idUser !== null) {
-      this.bookingService.getServiceInfos(parseInt(idUser, 10)).subscribe(bookings => this.bookings = bookings)
+      this.bookingService.getUserBooking(parseInt(idUser, 10)).subscribe(bookings => this.bookings = bookings)
     }
     
   }

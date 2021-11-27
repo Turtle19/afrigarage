@@ -1,6 +1,6 @@
+import { Booking } from './booking';
 import { OpeningHours } from './openinHours';
 import { Service } from './serviceEntity';
-import { Slotime } from './slotimesEntity';
 import { User } from './userEntity';
 
 export interface Garage {
@@ -9,36 +9,39 @@ export interface Garage {
   description: string;
   email: string;
   phone_number: string;
+  address: string;
   latitude: number;
   longitude: number;
-  isFavori: boolean;
   logo: Logo;
-  bookings: [];
+  bookings: Booking[];
+  ratings: [];
+  comments: Comment[];
   opening_hours: OpeningHours[];
   payments: [];
-  address: string;
-  slotimes: Slotime[];
-  avis: Avis[];
+  payment_types: PaymentType[];
   services: Service[];
+  isFavoris: boolean;
 }
 
-export interface Avis {
+export interface Comment {
   id: number;
-  descriptionAvis: string;
-  dateCreated: Date;
-  garage: Garage;
-  votes: Vote[];
-}
-
-export interface Vote {
-  id: number;
-  nbVote: number;
+  description: string;
+  user: User;
+  nbrLikes: number;
+  garage: number;
 }
 
 export interface Favoris {
   id: number;
   garage: Garage;
   user: User;
+}
+
+export interface PaymentType{
+  id: number;
+  type: string;
+  payment: any;
+  icon: Logo
 }
 
 export interface Logo {

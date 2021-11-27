@@ -29,7 +29,7 @@ export class GarageItemComponent implements OnInit {
       this.garageService
         .addGarageToFavorite(this.garage.id, parseInt(idUser, 10))
         .subscribe((added) => {
-          if (this.garage !== undefined) {
+          if (added !== null && this.garage !== undefined) {
             this.garage.isFavoris = true;
             Swal.fire('Garage ' + this.garage.name, 'a été bien ajouté à vos favoris', 'success');
           }
@@ -59,7 +59,7 @@ export class GarageItemComponent implements OnInit {
       this.openingHours = this.garage.opening_hours;
       this.openingHours.map((opening) => {
         if (opening.day_of_the_week === currentDay) {
-          //return this.isOpened(opening.opening_hour, opening.closing_hour);
+          return this.isOpened(opening.opening_hour, opening.closing_hour);
         }
         return Status.CLOSED;
       });
@@ -89,12 +89,14 @@ export class GarageItemComponent implements OnInit {
   }
 
   isOpened(start: Date, end: Date) {
+    const dateDeb = new Date(start);
+    const dateFin = new Date(end);
     const currentDate = new Date();
-    if (currentDate.getHours() < start.getHours()) {
+    if (currentDate.getHours() < dateDeb.getHours()) {
       return Status.CLOSED;
     } else if (
-      currentDate.getHours() >= start.getHours() &&
-      currentDate.getHours() <= end.getHours()
+      currentDate.getHours() >= dateDeb.getHours() &&
+      currentDate.getHours() <= dateFin.getHours()
     ) {
       return Status.OPENED;
     }

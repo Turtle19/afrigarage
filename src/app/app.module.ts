@@ -13,22 +13,35 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatInputModule } from '@angular/material/input';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { GarageItemComponent } from './garage-item/garage-item.component';
 import { HeaderComponent } from './header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { GarageDetailComponent } from './garage-detail/garage-detail.component';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { DialogRDVComponent } from './dialog-rdv/dialog-rdv.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatListModule} from '@angular/material/list';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatListModule } from '@angular/material/list';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { BookingAddDialogComponent } from './booking-add-dialog/booking-add-dialog.component';
 
-export const MATERIAL_MODULE = [MatSidenavModule, MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule, MatDialogModule, MatListModule, MatExpansionModule, MatTooltipModule];
+export const MATERIAL_MODULE = [
+  MatSidenavModule,
+  MatToolbarModule,
+  MatButtonModule,
+  MatIconModule,
+  MatCardModule,
+  MatDialogModule,
+  MatListModule,
+  MatExpansionModule,
+  MatTooltipModule,
+  MatInputModule,
+];
 
 @NgModule({
   declarations: [
@@ -41,7 +54,8 @@ export const MATERIAL_MODULE = [MatSidenavModule, MatToolbarModule, MatButtonMod
     GarageItemComponent,
     HeaderComponent,
     GarageDetailComponent,
-    DialogRDVComponent
+    DialogRDVComponent,
+    BookingAddDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,10 +70,10 @@ export const MATERIAL_MODULE = [MatSidenavModule, MatToolbarModule, MatButtonMod
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    })
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

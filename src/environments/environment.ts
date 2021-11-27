@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   urlBack: "http://localhost:1337",
   urlAuth: "http://localhost:1337/auth/local",
-  urlRegister: "localhost:1337/auth/local/register"
+  urlRegister: "http://localhost:1337/auth/local/register"
 };
 
 /*

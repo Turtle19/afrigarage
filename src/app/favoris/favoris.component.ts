@@ -8,7 +8,7 @@ import { GarageService } from '../services/garage.service';
   styleUrls: ['./favoris.component.css'],
 })
 export class FavorisComponent implements OnInit {
-  garageFavoris: Favoris[] = [];
+  garageFavoris: Garage[] = [];
 
   constructor(private garageService: GarageService) {}
 
@@ -18,7 +18,16 @@ export class FavorisComponent implements OnInit {
     if (idUser !== null) {
       this.garageService
         .getUserFavoris(parseInt(idUser, 10))
-        .subscribe((favoris) => (this.garageFavoris = favoris));
+        .subscribe((favoris) => {
+          if (favoris !== null) {
+            favoris.map(f => {
+              this.garageService.getGarageById(f.garage.id).subscribe(garage => {
+                garage.isFavoris = true;
+                this.garageFavoris.push(garage);
+              })
+            })
+          }
+        });
     }
   }
 }

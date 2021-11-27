@@ -1,9 +1,9 @@
 <ng-container *ngIf="garageFavoris.length > 0; else elseBlock">
   <div class="container-favoris" *ngFor="let fav of garageFavoris">
-    <app-garage-item [garage]="fav.garage"></app-garage-item>
+    <app-garage-item [garage]="fav" *ngIf="fav.isFavoris; else elseBlock"></app-garage-item>
   </div>
 </ng-container>
 
 <ng-template #elseBlock
-  ><h1 style="text-align: center">Aucun favoris trouvé.</h1></ng-template
+  ><h2 style="text-align: center; color: #3399ff; margin-top: 10px;">Votre liste de favoris est actuellement vide.</h2></ng-template
 >
